@@ -4,7 +4,7 @@ Pneumonia Detection — Streamlit App  (Capstone Project, Vignesh J)
 Image classification: trained Keras CNN model (VGG16 Frozen)
 Clinical context:    Groq LLM (same API used in the NewsFindr GenAI project)
 
-Upload a chest X-ray (.dcm / .png / .jpg) → predicted class + probability + AI clinical context.
+Upload a chest X-ray (.dcm / .png / .jpg) → predicted clashs + probability + AI clinical context.
 """
 import io, os, urllib.request
 import numpy as np
@@ -52,7 +52,10 @@ def load_groq_client():
     """Initialise Groq client from environment variable (set as a Space secret)."""
     api_key = os.environ.get("GROQ_API_KEY", "")
     if api_key and GROQ_AVAILABLE:
-        return Groq(api_key=api_key)
+        try:
+            return Groq(api_key=api_key)
+        except Exception:
+            return None
     return None
 
 
